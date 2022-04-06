@@ -42,6 +42,7 @@ public class TransformativeAudioSourceManager extends YoutubeAudioSourceManager
     public TransformativeAudioSourceManager(String name, Config object)
     {
         this(name, object.getString("regex"), object.getString("replacement"), object.getString("selector"), object.getString("format"));
+		
     }
     
     public TransformativeAudioSourceManager(String name, String regex, String replacement, String selector, String format)
@@ -66,11 +67,23 @@ public class TransformativeAudioSourceManager extends YoutubeAudioSourceManager
             return null;
         try
         {
-            String url = ar.identifier.replaceAll(regex, replacement);
-            Document doc = Jsoup.connect(url).get();
-            String value = doc.selectFirst(selector).ownText();
-            String formattedValue = String.format(format, value);
-            return super.loadItem(apm, new AudioReference(formattedValue, null));
+            String url2 = ar.identifier.replaceAll(regex, replacement);
+			if(url2.indexOf('?') != -1)
+			{
+				String url = url2.substring(0, url2.indexOf('?'));
+				Document doc = Jsoup.connect(url).get();
+				String value = doc.selectFirst(selector).ownText();
+				String formattedValue = String.format(format, value);
+				return super.loadItem(apm, new AudioReference(formattedValue, null));
+			}
+			else
+			{
+				String url = ar.identifier.replaceAll(regex, replacement);
+				Document doc = Jsoup.connect(url).get();
+				String value = doc.selectFirst(selector).ownText();
+				String formattedValue = String.format(format, value);
+				return super.loadItem(apm, new AudioReference(formattedValue, null));
+			}    
         }
         catch (PatternSyntaxException ex)
         {
