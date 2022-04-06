@@ -15,6 +15,10 @@ A cross-platform Discord music bot with a clean interface, and that is easy to s
 
 [![Setup](http://i.imgur.com/VvXYp5j.png)](https://jmusicbot.com/setup)
 
+## Jadua Edits
+
+ * Basically just adds spotify support 😄
+  
 ## Features
   * Easy to run (just make sure Java is installed, and run!)
   * Fast loading of songs
